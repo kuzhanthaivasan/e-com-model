@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Custom Styles */
+        body {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        .navbar, .footer {
+            background-color: #343a40;
+        }
+
+        .checkout-item {
+            border-bottom: 1px solid #dee2e6;
+            padding: 15px 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        .checkout-item img {
+            max-width: 100px;
+            transition: transform 0.3s ease;
+        }
+
+        .checkout-item img:hover {
+            transform: scale(1.1);
+        }
+
+        .checkout-total {
+            font-size: 1.25rem;
+            font-weight: bold;
+            animation: fadeIn 1s forwards;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Fade-out Animation */
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">E-Shop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="category.html">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Checkout Page Content -->
+    <div class="container my-5">
+        <h1 class="mb-4">Checkout</h1>
+        
+        <!-- Order Summary -->
+        <h2>Order Summary</h2>
+        <div id="checkoutItems">
+            <!-- Order summary will be dynamically inserted here -->
+        </div>
+
+        <!-- Shipping Information Form -->
+        <h2 class="mt-4">Shipping Information</h2>
+        <form id="shippingForm">
+            <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" class="form-control" id="address" required>
+            </div>
+            <div class="mb-3">
+                <label for="city" class="form-label">City</label>
+                <input type="text" class="form-control" id="city" required>
+            </div>
+            <div class="mb-3">
+                <label for="zip" class="form-label">Zip Code</label>
+                <input type="text" class="form-control" id="zip" required>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="text" class="form-control" id="phone" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Place Order</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4 mt-5 footer">
+        <p>&copy; 2024 E-commerce Website. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function populateCheckout() {
+            const checkoutItemsContainer = document.getElementById('checkoutItems');
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let totalAmount = 0;
+
+            checkoutItemsContainer.innerHTML = '';
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                totalAmount += itemTotal;
+
+                const row = document.createElement('div');
+                row.className = 'checkout-item d-flex align-items-center';
+
+                row.innerHTML = `
+                    <img src="${item.image}" alt="Product Image">
+                    <div class="ms-3 flex-grow-1">
+                        <h5>${item.title}</h5>
+                        <p>Price: $${item.price.toFixed(2)}</p>
+                        <p>Quantity: ${item.quantity}</p>
+                    </div>
+                    <div class="ms-3">
+                        <h5>$${itemTotal.toFixed(2)}</h5>
+                    </div>
+                `;
+
+                checkoutItemsContainer.appendChild(row);
+            });
+
+            document.querySelector('#shippingForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                alert('Order placed successfully!');
+                localStorage.removeItem('cart');
+                window.location.href = 'order-confirmation.html'; // Redirect to order confirmation page
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', populateCheckout);
+    </script>
+</body>
+
+</html>

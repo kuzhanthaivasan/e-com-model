@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js" defer></script>
+    <script src="search.js"></script>
+    <style>
+        /* Internal CSS for animations */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Scroll to top button */
+        #scrollToTop {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        #scrollToTop.fade-in {
+            opacity: 1;
+        }
+
+        #scrollToTop.fade-out {
+            opacity: 0;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">E-Shop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="category.html">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                </ul>
+                <!-- Search Bar -->
+                <form class="d-flex ms-3" id="searchForm" action="search.html" method="get">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput" name="query">
+                    <button class="btn btn-outline-light" type="submit" id="searchButton">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Slider -->
+    <div id="carouselExampleIndicators" class="carousel slide fade-in" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="images/commercial-product-background-replace-high-resolution-fast-v0-mq9xu0r7n9wc1 (1).webp" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="images/Dairy-Products.jpeg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="images/photo-1505740420928-5e560c06d30e.jpeg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Shop by Category -->
+    <section class="container my-5 fade-in">
+        <h2 class="text-center mb-4">Shop by Category</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="images/download.jpeg" class="card-img-top" alt="Camera">
+                    <div class="card-body">
+                        <h5 class="card-title">Category 1: Cameras</h5>
+                        <p class="card-text">Explore our wide range of high-definition cameras for capturing your best moments.</p>
+                        <a href="category.html?id=1" class="btn btn-primary">View Cameras</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="images/smartphone.jpg" class="card-img-top" alt="Smartphone">
+                    <div class="card-body">
+                        <h5 class="card-title">Category 2: Smartphones</h5>
+                        <p class="card-text">Discover the latest smartphones with cutting-edge technology and sleek designs.</p>
+                        <a href="category.html?id=2" class="btn btn-primary">View Smartphones</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="images/laptop.jpg" class="card-img-top" alt="Laptop">
+                    <div class="card-body">
+                        <h5 class="card-title">Category 3: Laptops</h5>
+                        <p class="card-text">Find powerful laptops with top-notch performance for work, gaming, and more.</p>
+                        <a href="category.html?id=3" class="btn btn-primary">View Laptops</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Products -->
+    <section class="container my-5 fade-in">
+        <h2 class="text-center mb-4">Latest Products</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="images/watch1.jpg" class="card-img-top" alt="Watch">
+                    <div class="card-body">
+                        <h5 class="card-title">Smart Watch</h5>
+                        <p class="card-text">$100.00</p>
+                        <a href="product-view.html?productId=1&title=Smart+Watch&price=100&image=watch1.jpg&description=This+is+a+high-quality+smart+watch" class="btn btn-primary">View Product</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="images/shirt.jpg" class="card-img-top" alt="Shirt">
+                    <div class="card-body">
+                        <h5 class="card-title">Casual Shirt</h5>
+                        <p class="card-text">$30.00</p>
+                        <a href="product-view.html?productId=2&title=Casual+Shirt&price=30&image=shirt.jpg&description=This+is+a+comfortable+casual+shirt" class="btn btn-primary">View Product</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="images/cooker.jpg" class="card-img-top" alt="Cooker">
+                    <div class="card-body">
+                        <h5 class="card-title">Electric Cooker</h5>
+                        <p class="card-text">$80.00</p>
+                        <a href="product-view.html?productId=3&title=Electric+Cooker&price=80&image=cooker.jpg&description=This+is+an+efficient+electric+cooker" class="btn btn-primary">View Product</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="images/watch4.jpg" class="card-img-top" alt="Watch">
+                    <div class="card-body">
+                        <h5 class="card-title">Smart Watch 4</h5>
+                        <p class="card-text">$250.00</p>
+                        <a href="product-view.html?productId=4&title=Smart+Watch+4&price=250&image=watch4.jpg&description=This+is+Smart+Watch+4" class="btn btn-primary">View Product</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="bg-light py-5 fade-in">
+        <div class="container">
+            <h2 class="text-center mb-4">Why Shop With Us?</h2>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <h3>Free Shipping</h3>
+                    <p>On all orders over $50.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>24/7 Support</h3>
+                    <p>Our customer support is available 24/7 to assist you.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Secure Payments</h3>
+                    <p>We ensure secure payment transactions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2024 E-Shop. All rights reserved.</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop">
+        <span>&#8679;</span>
+    </button>
+
+    <script>
+        // Back to Top Button
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) {
+                scrollToTopBtn.classList.add('fade-in');
+                scrollToTopBtn.classList.remove('fade-out');
+            } else {
+                scrollToTopBtn.classList.add('fade-out');
+                scrollToTopBtn.classList.remove('fade-in');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

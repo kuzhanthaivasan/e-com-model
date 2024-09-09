@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #121212;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero-image {
+            background: url('images/smart.jpg') no-repeat center center;
+            background-size: cover;
+            height: 400px;
+            color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .hero-text {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .features, .testimonials {
+            margin-top: 40px;
+        }
+
+        .card {
+            background: #1e1e1e;
+            border: none;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .card:hover {
+            background: #333;
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            color: #ddd;
+        }
+
+        .testimonial-item {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .testimonial-item:hover {
+            background: #333;
+        }
+
+        footer {
+            background: #1e1e1e;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">E-Shop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="category.html">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-image">
+        <div class="hero-text">
+            <h1>About Us</h1>
+            <p>Learn more about our company and what we stand for.</p>
+        </div>
+    </div>
+
+    <!-- About Us Content -->
+    <div class="container my-5">
+        <!-- Company Information -->
+        <section>
+            <h2>Our Company</h2>
+            <p>Welcome to E-Shop, your number one source for all things electronics. We're dedicated to providing you the very best of electronic gadgets, with an emphasis on innovation, quality, and customer satisfaction.</p>
+            <p>Founded in 2020 by Jane Doe, E-Shop has come a long way from its beginnings in San Francisco. When Jane first started out, her passion for technology and customer service drove her to create a platform that would make it easy for people to find the latest gadgets and accessories. With hard work and inspiration, she turned that vision into a successful online store.</p>
+        </section>
+
+        <!-- Features -->
+        <section class="features">
+            <h2>Our Features</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Wide Range of Products</h5>
+                            <p class="card-text">We offer a diverse selection of the latest electronics from top brands.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Exceptional Customer Service</h5>
+                            <p class="card-text">Our team is dedicated to providing support and ensuring your satisfaction.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Secure Shopping Experience</h5>
+                            <p class="card-text">We use advanced security measures to protect your personal and payment information.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials">
+            <h2>What Our Customers Say</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="testimonial-item">
+                        <p>"E-Shop is fantastic! The quality of the products is exceptional and the customer service is top-notch. Highly recommend!"</p>
+                        <p><strong>John Doe</strong></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-item">
+                        <p>"I had a great experience shopping at E-Shop. The website is easy to navigate and the delivery was quick."</p>
+                        <p><strong>Jane Smith</strong></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-item">
+                        <p>"Excellent service and amazing products. Will definitely shop here again!"</p>
+                        <p><strong>Emily Johnson</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <p>&copy; 2024 E-commerce Website. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

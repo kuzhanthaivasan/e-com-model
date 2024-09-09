@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product View</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        /* Custom Styles */
+        .carousel-item img {
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item-next,
+        .carousel-item-prev,
+        .carousel-item.active {
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .product-details {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
+        }
+
+        .product-details h1, .product-details h3, .product-details p {
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .product-details h1:hover, 
+        .product-details h3:hover,
+        .product-details p:hover {
+            color: #007bff;
+            transform: translateY(-5px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-primary {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        footer {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
+            animation-delay: 1.5s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">E-Shop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="category.html">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                </ul>
+                <form class="d-flex ms-3" action="search.html" method="get">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Product View -->
+    <section class="container my-5">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Product Images -->
+                <div id="productImages" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img id="productImage" src="" class="d-block w-100" alt="Product Image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 product-details">
+                <!-- Product Details -->
+                <h1 id="productTitle">Product Title</h1>
+                <p id="productDescription">Detailed description of the product.</p>
+                <h3 id="productPrice">$0.00</h3>
+                <div id="productRatings">★★★★☆ (4.0)</div>
+
+                <!-- Quantity and Add to Cart -->
+                <div class="d-flex align-items-center mb-3">
+                    <label for="quantity" class="form-label me-2">Quantity:</label>
+                    <input type="number" id="quantity" class="form-control" value="1" min="1">
+                </div>
+                <button id="addToCartBtn" class="btn btn-primary">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <p>&copy; 2024 E-Shop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to get URL parameters
+        function getParameterByName(name) {
+            const url = new URL(window.location.href);
+            return url.searchParams.get(name);
+        }
+
+        // Populate product details
+        const productTitle = getParameterByName('title');
+        const productPrice = getParameterByName('price');
+        const productImage = getParameterByName('image');
+        const productDescription = getParameterByName('description');
+
+        if (productTitle && productPrice && productImage && productDescription) {
+            document.getElementById('productTitle').textContent = productTitle;
+            document.getElementById('productPrice').textContent = `$${productPrice}`;
+            document.getElementById('productImage').src = 'images/' + productImage;
+            document.getElementById('productDescription').textContent = decodeURIComponent(productDescription);
+        } else {
+            alert('Product details are missing.');
+        }
+
+        // Add to Cart Functionality
+        document.getElementById('addToCartBtn').addEventListener('click', function() {
+            const title = document.getElementById('productTitle').textContent;
+            const price = parseFloat(document.getElementById('productPrice').textContent.replace('$', ''));
+            const quantity = parseInt(document.getElementById('quantity').value, 10);
+
+            const cartItem = {
+                title: title,
+                price: price,
+                quantity: quantity,
+                total: price * quantity
+            };
+
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push(cartItem);
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            alert('Product added to cart!');
+        });
+    </script>
+</body>
+</html>

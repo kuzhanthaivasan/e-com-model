@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products Page | E-Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Custom Styles */
+        .filter-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-section h4 {
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .filter-section select,
+        .filter-section input {
+            margin-bottom: 10px;
+        }
+
+        .filter-section input[type="range"] {
+            width: 100%;
+        }
+
+        .product-card {
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .navbar {
+            margin-bottom: 30px;
+        }
+
+        .footer {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">E-Shop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="category.html">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Section -->
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Search Bar -->
+            <div class="col-md-12 mb-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search for products...">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Sidebar Filters -->
+            <div class="col-md-3">
+                <div class="filter-section">
+                    <h4>Filter by Category</h4>
+                    <select class="form-select" id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="home">Home & Kitchen</option>
+                    </select>
+                </div>
+
+                <div class="filter-section">
+                    <h4>Filter by Price</h4>
+                    <input type="range" class="form-range" min="0" max="700" step="10" id="priceRange">
+                    <div class="d-flex justify-content-between">
+                        <span id="priceMin">$0</span>
+                        <span id="priceMax">$700</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product List -->
+            <div class="col-md-9">
+                <div class="row" id="productList">
+                    <!-- Product Cards will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Size Modal -->
+    <div class="modal fade" id="imageSizeModal" tabindex="-1" aria-labelledby="imageSizeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageSizeModalLabel">Image Size</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="imageSizeModalBody">
+                    <!-- Image size details will be injected here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4 footer">
+        <p>&copy; 2024 E-Shop. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const products = [
+                { id: 1, title: 'Watch', price: 200, image: 'watch1.jpg', description: 'A smartwatch with fitness tracking features', category: 'electronics' },
+                { id: 2, title: 'Casual Shirt', price: 50, image: 'shirt.jpg', description: 'A stylish casual shirt for everyday wear', category: 'clothing' },
+                { id: 3, title: 'Electric Cooker', price: 120, image: 'cooker.jpg', description: 'An efficient electric cooker for easy cooking', category: 'home' },
+                { id: 4, title: 'Smartphone', price: 300, image: 'smartphone.jpg', description: 'A high-quality smartphone', category: 'electronics' },
+                { id: 5, title: 'Laptop', price: 500, image: 'laptop.jpg', description: 'A powerful laptop for work and play', category: 'electronics' },
+                { id: 6, title: 'Running Shoes', price: 80, image: 'shoes.jpg', description: 'Comfortable running shoes', category: 'clothing' },
+                { id: 7, title: 'Blender', price: 50, image: 'blender.jpg', description: 'A blender for smoothies and more', category: 'home' },
+                { id: 8, title: 'Smartwatch', price: 200, image: 'smartwatch.jpg', description: 'A smartwatch with fitness tracking features', category: 'electronics' },
+                { id: 9, title: 'T-shirt', price: 20, image: 'tshirt.jpg', description: 'A stylish cotton t-shirt', category: 'clothing' }
+            ];
+    
+            const productList = document.getElementById('productList');
+            const priceMin = document.getElementById('priceMin');
+            const priceMax = document.getElementById('priceMax');
+            const searchInput = document.getElementById('searchInput');
+    
+            function renderProducts(filteredProducts) {
+                productList.innerHTML = ''; // Clear the product list before rendering
+                filteredProducts.forEach(async product => {
+                    const imageURL = `images/${product.image}`; // Directly use the local directory
+    
+                    const productCard = document.createElement('div');
+                    productCard.className = 'col-md-4';
+                    productCard.innerHTML = `
+                        <div class="card product-card">
+                            <img src="${imageURL}" class="card-img-top" alt="${product.title}">
+                            <div class="card-body">
+                                <h5 class="card-title">${product.title}</h5>
+                                <p class="card-text">$${product.price.toFixed(2)}</p>
+                                <a href="product-view.html?productId=${product.id}&title=${encodeURIComponent(product.title)}&price=${product.price}&image=${encodeURIComponent(product.image)}&description=${encodeURIComponent(product.description)}" class="btn btn-primary">View Product</a>
+                                <button class="btn btn-success mt-2 add-to-cart-btn" data-id="${product.id}" data-title="${product.title}" data-price="${product.price}" data-image="${product.image}" data-description="${product.description}">Add to Cart</button>
+                            </div>
+                        </div>
+                    `;
+                    productList.appendChild(productCard);
+                });
+            }
+    
+            function filterProducts() {
+                const searchQuery = searchInput.value.trim().toLowerCase();
+                const selectedCategory = document.getElementById('categoryFilter').value;
+                const maxPrice = document.getElementById('priceRange').value;
+    
+                const filteredProducts = products.filter(product =>
+                    (selectedCategory === 'all' || product.category === selectedCategory) &&
+                    product.price <= maxPrice &&
+                    product.title.toLowerCase().includes(searchQuery)
+                );
+    
+                renderProducts(filteredProducts);
+            }
+    
+            // Initial render
+            renderProducts(products);
+    
+            // Update price display
+            function updatePriceDisplay(value) {
+                priceMin.textContent = `$0`;
+                priceMax.textContent = `$${value}`;
+            }
+    
+            // Event listeners
+            document.getElementById('categoryFilter').addEventListener('change', filterProducts);
+            document.getElementById('priceRange').addEventListener('input', function () {
+                updatePriceDisplay(this.value);
+                filterProducts();
+            });
+            searchInput.addEventListener('input', filterProducts);
+    
+            // Initialize price display
+            updatePriceDisplay(document.getElementById('priceRange').value);
+    
+            // Add to Cart functionality
+            productList.addEventListener('click', function (event) {
+                if (event.target && event.target.classList.contains('add-to-cart-btn')) {
+                    const button = event.target;
+                    const product = {
+                        id: button.getAttribute('data-id'),
+                        title: button.getAttribute('data-title'),
+                        price: parseFloat(button.getAttribute('data-price')),
+                        image: button.getAttribute('data-image'),
+                        description: button.getAttribute('data-description'),
+                        quantity: 1
+                    };
+    
+                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    const existingProductIndex = cart.findIndex(item => item.id === product.id);
+    
+                    if (existingProductIndex > -1) {
+                        cart[existingProductIndex].quantity += product.quantity;
+                    } else {
+                        cart.push(product);
+                    }
+    
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    alert('Product added to cart!');
+                }
+            });
+
+            // Handle View Product button click
+            productList.addEventListener('click', function (event) {
+                if (event.target && event.target.classList.contains('btn-primary')) {
+                    const productCard = event.target.closest('.product-card');
+                    const img = productCard.querySelector('img');
+                    
+                    const image = new Image();
+                    image.src = img.src;
+
+                    image.onload = function () {
+                        const width = this.width;
+                        const height = this.height;
+                        document.getElementById('imageSizeModalBody').innerHTML = `
+                            <p><strong>Width:</strong> ${width}px</p>
+                            <p><strong>Height:</strong> ${height}px</p>
+                        `;
+                        const imageSizeModal = new bootstrap.Modal(document.getElementById('imageSizeModal'));
+                        imageSizeModal.show();
+                    };
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

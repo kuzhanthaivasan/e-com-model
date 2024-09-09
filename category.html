@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Custom Styles */
+        .category-sidebar {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .category-sidebar:hover {
+            background-color: #e9ecef;
+            transform: scale(1.02);
+        }
+
+        .category-sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .category-sidebar ul li {
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .category-sidebar ul li a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .category-sidebar ul li a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .category-title {
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .category-description {
+            margin-bottom: 30px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: scale(1.03);
+        }
+
+        .card img {
+            border-bottom: 1px solid #ddd;
+            transition: transform 0.3s ease;
+        }
+
+        .card img:hover {
+            transform: scale(1.05);
+        }
+
+        .footer {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">E-Shop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="category.html">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Category Page Content -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Sidebar for Categories -->
+            <div class="col-md-3 category-sidebar">
+                <h4>Categories</h4>
+                <ul id="categoryList">
+                    <!-- Categories will be dynamically inserted here -->
+                </ul>
+                <!-- Filter Options -->
+                <h4 class="mt-4">Filters</h4>
+                <div class="form-group">
+                    <label for="sortBy">Sort By:</label>
+                    <select id="sortBy" class="form-select">
+                        <option value="default">Default</option>
+                        <option value="priceAsc">Price: Low to High</option>
+                        <option value="priceDesc">Price: High to Low</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Category Details -->
+            <div class="col-md-9">
+                <div id="categoryDetails">
+                    <h1 id="categoryTitle" class="category-title">Category Title</h1>
+                    <img id="categoryImage" src="images/banner.avif" class="img-fluid" alt="Category Image">
+                    <p id="categoryDescription" class="category-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+                </div>
+                
+                <!-- Category Products -->
+                <div class="row mt-4" id="productList">
+                    <!-- Product Cards will be dynamically injected here -->
+                </div>
+
+                <!-- No products found message -->
+                <div id="noProductsMessage" class="text-center mt-5" style="display: none;">
+                    <h3>No products found in this category.click on the gategories to view categories</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4 footer">
+        <p>&copy; 2024 E-commerce Website. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const categories = [
+                { id: '1', name: 'Camera', image: 'images/banner.avif', description: 'Explore our wide range of cameras, from compact point-and-shoots to professional DSLRs.' },
+                { id: '2', name: 'Smartphone', image: 'images/banner.avif', description: 'Find the latest smartphones with cutting-edge technology and sleek designs.' },
+                { id: '3', name: 'Laptop', image: 'images/banner.avif', description: 'Browse our selection of high-performance laptops for work, gaming, and everyday use.' }
+            ];
+
+            const products = [
+                // Products for Category 1 (Camera)
+                { id: 1, title: 'Ultra HD Camera Pro', price: 499.99, image: 'camera1.gif', description: 'Capture stunning images with this ultra HD camera featuring advanced zoom and high resolution.', category: '1' },
+                { id: 2, title: 'Compact Camera X', price: 299.99, image: 'c2.jpeg', description: 'A compact camera with easy-to-use features and high image quality.', category: '1' },
+                { id: 3, title: 'Professional DSLR 4K', price: 799.99, image: 'c3.webp', description: 'Professional DSLR camera with 4K video recording and excellent low-light performance.', category: '1' },
+
+                // Products for Category 2 (Smartphone)
+                { id: 4, title: 'Smartphone A1', price: 699.99, image: 's1.webp', description: 'Smartphone with a high-resolution display and powerful performance for all your needs.', category: '2' },
+                { id: 5, title: 'Smartphone B2', price: 849.99, image: 's2.webp', description: 'Flagship smartphone with a sleek design and cutting-edge features.', category: '2' },
+                { id: 6, title: 'Smartphone C3', price: 599.99, image: 's3.webp', description: 'Affordable smartphone with great performance and battery life.', category: '2' },
+
+                // Products for Category 3 (Laptop)
+                { id: 7, title: 'Gaming Laptop X', price: 1199.99, image: 'l1.jpg', description: 'High-performance gaming laptop with the latest graphics and processing power.', category: '3' },
+                { id: 8, title: 'Ultrabook Pro', price: 999.99, image: 'l2.jpg', description: 'Slim and powerful ultrabook for professionals and students alike.', category: '3' },
+                { id: 9, title: 'Laptop for Work', price: 899.99, image: 'l3.jpg', description: 'Reliable laptop with all the features you need for productivity and work tasks.', category: '3' }
+            ];
+
+            const categoryList = document.getElementById('categoryList');
+            const categoryTitle = document.getElementById('categoryTitle');
+            const categoryImage = document.getElementById('categoryImage');
+            const categoryDescription = document.getElementById('categoryDescription');
+            const productList = document.getElementById('productList');
+            const noProductsMessage = document.getElementById('noProductsMessage');
+            const sortBy = document.getElementById('sortBy');
+
+            function renderCategories() {
+                categoryList.innerHTML = '';
+                categories.forEach(category => {
+                    const categoryItem = document.createElement('li');
+                    categoryItem.innerHTML = `<a href="category.html?id=${category.id}">${category.name}</a>`;
+                    categoryList.appendChild(categoryItem);
+                });
+            }
+
+            function renderProducts(categoryId, sortOption) {
+                productList.innerHTML = '';
+                noProductsMessage.style.display = 'none';
+                
+                const filteredProducts = products.filter(product => product.category === categoryId);
+
+                if (sortOption === 'priceAsc') {
+                    filteredProducts.sort((a, b) => a.price - b.price);
+                } else if (sortOption === 'priceDesc') {
+                    filteredProducts.sort((a, b) => b.price - a.price);
+                }
+
+                if (filteredProducts.length === 0) {
+                    noProductsMessage.style.display = 'block';
+                    return;
+                }
+
+                filteredProducts.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'col-md-4 mb-4';
+                    productCard.innerHTML = `
+                        <div class="card">
+                            <img src="images/${product.image}" class="card-img-top" alt="${product.title}">
+                            <div class="card-body">
+                                <h5 class="card-title">${product.title}</h5>
+                                <p class="card-text">${product.description}</p>
+                                <p class="card-text"><strong>$${product.price}</strong></p>
+                                <a href="product-view.html?title=${encodeURIComponent(product.title)}&price=${product.price}&image=${encodeURIComponent(product.image)}&description=${encodeURIComponent(product.description)}" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    `;
+                    productList.appendChild(productCard);
+                });
+            }
+
+            function initializePage() {
+                renderCategories();
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const categoryId = urlParams.get('id');
+                const selectedCategory = categories.find(cat => cat.id === categoryId);
+
+                if (selectedCategory) {
+                    categoryTitle.textContent = selectedCategory.name;
+                    categoryImage.src = 'images/' + selectedCategory.image;
+                    categoryDescription.textContent = selectedCategory.description;
+                    renderProducts(categoryId, 'default');
+                } else {
+                    categoryTitle.textContent = 'Category not found';
+                    noProductsMessage.style.display = 'block';
+                }
+            }
+
+            initializePage();
+
+            sortBy.addEventListener('change', function() {
+                const categoryId = new URLSearchParams(window.location.search).get('id');
+                renderProducts(categoryId, this.value);
+            });
+        });
+    </script>
+</body>
+</html>
