@@ -162,7 +162,7 @@
 
                     // Ensure the image URL is properly displayed
                     row.innerHTML = `
-                        <img src="${item.image}" alt="${item.title} image">
+                        <img src="images/${item.image}" alt="${item.title} image">
                         <div class="ms-3 flex-grow-1">
                             <h5>${item.title}</h5>
                             <p>Price: $${item.price.toFixed(2)}</p>
@@ -210,6 +210,7 @@
             document.getElementById('clearCartButton').addEventListener('click', clearCart);
         });
     </script>
+    <script src="scripts.js"></script>
 </body>
 
 </html>
